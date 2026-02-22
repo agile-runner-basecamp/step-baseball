@@ -1,0 +1,22 @@
+# Java
+build/
+.gradle/
+out/
+*.class
+
+# TypeScript
+node_modules/
+dist/
+*.js
+*.js.map
+*.d.ts
+!jest.config.json
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

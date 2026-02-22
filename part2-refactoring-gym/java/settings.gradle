@@ -1,0 +1,6 @@
+rootProject.name = 'refactoring-gym'
+
+include 'step1-naming'
+include 'step2-early-return'
+include 'step3-method-sep'
+include 'step4-ui-separation'
