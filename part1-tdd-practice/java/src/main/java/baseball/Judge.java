@@ -12,4 +12,8 @@ public class Judge {
         }
         return strike;
     }
+
+    public int countBall(List<Integer> answer, List<Integer> guess) {
+        return 3;
+    }
 }
