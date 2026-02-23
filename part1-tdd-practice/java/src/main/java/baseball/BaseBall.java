@@ -9,20 +9,47 @@ public class BaseBall{
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
     private final RandomNumber randomNumber;
-    private String ranNum;
-    private String userNum;
-
     public BaseBall(InputHandler inputHandler, OutputHandler outputHandler, RandomNumber randomNumber){
         this.inputHandler = inputHandler;
         this.outputHandler = outputHandler;
         this.randomNumber = randomNumber;
-        this.ranNum = randomNumber.makeRandomNumber();
     }
 
     public void run(){
+
         outputHandler.gameStartMessage();
-        inputHandler.inputUserNum();
-        Umpire umpire = new Umpire(ranNum, userNum);
+        String ranNum = randomNumber.makeRandomNumber();
+
+        while(true){
+            String userNum = inputHandler.inputUserNum();
+
+            Umpire umpire = new Umpire(ranNum, userNum);
+            int strike = umpire.countStrike();
+            int ball = umpire.countBall();
+
+            outputHandler.gameScoreMessage(strike, ball);
+
+            if(strike != 3) continue;
+            outputHandler.gameCompleteMessage();
+
+            String restartNum = inputHandler.inputRestartNum();
+
+            if(restartNum == "1"){
+                ranNum = randomNumber.makeRandomNumber();
+                continue;
+            }
+
+            if(restartNum == "2"){
+                outputHandler.gameCompleteMessage();
+                return;
+            }
+
+
+
+        }
+
+
+
 
 
 

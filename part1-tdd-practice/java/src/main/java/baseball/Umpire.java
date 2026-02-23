@@ -1,7 +1,6 @@
 package baseball;
 
 public class Umpire {
-
     private String ranNum;
     private String userNum;
     public Umpire(String ranNum, String userNum){
