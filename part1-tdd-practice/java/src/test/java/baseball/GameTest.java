@@ -2,6 +2,7 @@ package baseball;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,5 +19,20 @@ class GameTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @DisplayName("한 턴 결과를 볼/스트라이크 문자열로 반환한다")
+    @Test
+    void playTurn() {
+        // given
+        Game game = new Game();
+        List<Integer> answer = List.of(1, 2, 3);
+        List<Integer> guess = List.of(1, 3, 5);
+
+        // when
+        String result = game.playTurn(answer, guess);
+
+        // then
+        assertThat(result).isEqualTo("1볼 1스트라이크");
     }
 }
