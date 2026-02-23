@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UmpireTest {
     @DisplayName("같은 자리에 같은 수가 있으면 스트라이크 판정한다.")
     @Test
-    void judgeStrike(){
+    void checkStrikeTest(){
         // given
         String ranNum = "486";
         String userNum = "497";
@@ -27,7 +27,7 @@ public class UmpireTest {
 
     @DisplayName("자릿수만 다르고 같은 숫자가 있다면 볼 판정한다.")
     @Test
-    void judgeBall(){
+    void checkBallTest(){
         // given
         String ranNum = "123";
         String userNum = "123";
@@ -42,30 +42,37 @@ public class UmpireTest {
         assertThat(result).isEqualTo(0);
     }
 
-    @DisplayName("자릿수만 다르고 같은 숫자가 있다면 볼 판정한다.")
+
+    @DisplayName("랜덤한 숫자와 사용자가 입력한 숫자간의 스트라이크 갯수를 센다.")
     @Test
-    void makeRandomNum(){
-        // given
-        RandomNumber randomNumber = new RandomNumber();
+    void countStrikeTest(){
+        String ranNum = "123";
+        String userNum = "124";
 
-        // when
-        String result = randomNumber.makeRandomNumber();
+        Umpire umpire = new Umpire();
 
-        // then
+        int result = umpire.countStrike(ranNum, userNum);
 
-        // 세자릿 수 인지
-        assertThat(result).hasSize(3);
-
-        // 1~9까지의 숫자인지
-        assertThat(result).matches("[1-9]{3}");
-
-        // 서로 다른 숫자인지
-        assertThat(result.chars()
-                .mapToObj(c -> (char)c)
-                .collect(Collectors.toSet()))
-                .hasSize(3);
-
+        assertThat(result).isEqualTo(2);
 
     }
+
+    @DisplayName("랜덤한 숫자와 사용자가 입력한 숫자간의 볼 갯수를 센다.")
+    @Test
+    void countBallTest(){
+        String ranNum = "123";
+        String userNum = "312";
+
+        Umpire umpire = new Umpire();
+
+        int result = umpire.countStrike(ranNum, userNum);
+
+        assertThat(result).isEqualTo(0);
+
+    }
+
+
+
+
 
 }
