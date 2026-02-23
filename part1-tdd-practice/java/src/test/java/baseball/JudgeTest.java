@@ -22,4 +22,19 @@ class JudgeTest {
         // then
         assertThat(result).isEqualTo(1);
     }
+
+    @DisplayName("같은 수가 다른 자리에 있으면 볼이다")
+    @Test
+    void countBall() {
+        // given
+        List<Integer> answer = List.of(1, 2, 3);
+        List<Integer> guess = List.of(3, 1, 2);
+
+        // when
+        Judge judge = new Judge();
+        int result = judge.countBall(answer, guess);
+
+        // then
+        assertThat(result).isEqualTo(3);
+    }
 }
