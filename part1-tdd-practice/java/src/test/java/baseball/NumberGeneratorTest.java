@@ -20,4 +20,17 @@ class NumberGeneratorTest {
         // then
         assertThat(numbers).hasSize(3);
     }
+
+    @DisplayName("1~9 사이의 숫자만 생성한다")
+    @Test
+    void generateNumbersInRange() {
+        // given
+        NumberGenerator numberGenerator = new NumberGenerator();
+
+        // when
+        List<Integer> numbers = numberGenerator.generate();
+
+        // then
+        assertThat(numbers).allMatch(number -> number >= 1 && number <= 9);
+    }
 }
