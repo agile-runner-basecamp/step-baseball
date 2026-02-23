@@ -50,4 +50,17 @@ class JudgeTest {
         // then
         assertThat(result).isEqualTo("1볼 1스트라이크");
     }
+
+    @DisplayName("볼과 스트라이크가 모두 0이면 낫싱이다")
+    @Test
+    void formatNothing() {
+        // given
+        Judge judge = new Judge();
+
+        // when
+        String result = judge.formatResult(0, 0);
+
+        // then
+        assertThat(result).isEqualTo("낫싱");
+    }
 }
