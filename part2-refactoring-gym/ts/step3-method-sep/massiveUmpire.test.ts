@@ -1,6 +1,8 @@
 import { MassiveUmpire } from './massiveUmpire';
 
 describe('MassiveUmpire', () => {
+    const STRIKES = 0;
+    const BALLS = 1;
     it('정상_동작_판정_확인', () => {
         const umpire = new MassiveUmpire();
         const answer = ["1", "2", "3"];
@@ -8,8 +10,8 @@ describe('MassiveUmpire', () => {
 
         const result = umpire.playGame(answer, guess);
 
-        expect(result[0]).toBe(1); // 1스트라이크
-        expect(result[1]).toBe(1); // 1볼
+        expect(result[STRIKES]).toBe(1); // 1스트라이크
+        expect(result[BALLS]).toBe(1); // 1볼
     });
 
     it('숫자가_아닌_문자_입력시_예외발생', () => {
@@ -28,14 +30,14 @@ describe('MassiveUmpire', () => {
     it('모두_같은_숫자일때_3스트라이크_0볼', () => {
         const umpire = new MassiveUmpire();
         const result = umpire.playGame(["1", "2", "3"], ["1", "2", "3"]);
-        expect(result[0]).toBe(3);
-        expect(result[1]).toBe(0);
+        expect(result[STRIKES]).toBe(3);
+        expect(result[BALLS]).toBe(0);
     });
 
     it('모두_다른_숫자일때_0스트라이크_0볼', () => {
         const umpire = new MassiveUmpire();
         const result = umpire.playGame(["1", "2", "3"], ["4", "5", "6"]);
-        expect(result[0]).toBe(0);
-        expect(result[1]).toBe(0);
+        expect(result[STRIKES]).toBe(0);
+        expect(result[BALLS]).toBe(0);
     });
 });

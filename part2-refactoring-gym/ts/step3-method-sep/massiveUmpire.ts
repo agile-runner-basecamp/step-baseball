@@ -1,47 +1,59 @@
 export class MassiveUmpire {
+    private readonly TARGET_SIZE = 3;
     public playGame(rawAnswer: string[], rawGuess: string[]): [number, number] {
+        this.validateInput(rawAnswer, rawGuess);
+
+        const answer = this.parseToNumbers(rawAnswer);
+        const guess = this.parseToNumbers(rawGuess);
+        const strikeCount = this.countStrikes(answer, guess);
+        const ballCount = this.countBalls(answer, guess);
+        return [strikeCount, ballCount];
+    }
+
+    private validateInput(rawAnswer: string[] | null | undefined, rawGuess: string[] | null | undefined): void {
+        
         // 1. 입력 검증
         if (!rawAnswer || !rawGuess) {
             throw new Error("입력값은 null이나 undefined일 수 없습니다.");
         }
-        if (rawAnswer.length !== 3 || rawGuess.length !== 3) {
+        if (rawAnswer.length !== this.TARGET_SIZE || rawGuess.length !== this.TARGET_SIZE) {
             throw new Error("입력값의 길이가 3이어야 합니다.");
         }
+    }
 
-        // 2. 파싱 (String -> Number)
-        const answer: number[] = [];
-        const guess: number[] = [];
-        for (let i = 0; i < 3; i++) {
-            const parsedAnswer = Number(rawAnswer[i]);
-            const parsedGuess = Number(rawGuess[i]);
+    private parseToNumbers(raw: string[]): number[] {
 
-            if (Number.isNaN(parsedAnswer) || Number.isNaN(parsedGuess)) {
+        const numbers: number[] = [];
+        for (let i = 0; i < this.TARGET_SIZE; i++) {
+            const parsed = Number(raw[i]);
+
+            if (Number.isNaN(parsed)) {
                 throw new Error("숫자만 입력 가능합니다.");
-            }
-
-            answer.push(parsedAnswer);
-            guess.push(parsedGuess);
+            }  
+            numbers.push(parsed);
         }
+        return numbers;
+    }
 
-        // 3. 스트라이크 판정
+    private countStrikes(answer: number[], guess: number[]): number {
         let strikeCount = 0;
-        for (let i = 0; i < 3; i++) {
+
+        for (let i = 0; i < this.TARGET_SIZE; i++) {
             if (answer[i] === guess[i]) {
                 strikeCount++;
-            }
+            }  
         }
+        return strikeCount;
+    }   
 
-        // 4. 볼 판정
+    private countBalls(answer: number[], guess: number[]): number {
         let ballCount = 0;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < this.TARGET_SIZE; i++) {
+            for (let j = 0; j < this.TARGET_SIZE; j++) {
                 if (i !== j && answer[i] === guess[j]) {
                     ballCount++;
                 }
             }
-        }
-
-        // 5. 결과 반환 [스트라이크, 볼]
-        return [strikeCount, ballCount];
+        }   return ballCount;  
     }
 }
