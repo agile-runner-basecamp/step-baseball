@@ -1,14 +1,19 @@
-export class ConsoleUmpire {
-    public play(answer: number[], guess: number[]): void {
+export type UmpireResult = {
+    strikes: number;
+    balls: number;
+};
+
+
+export class Umpire {
+    public judge(answer: number[], guess: number[]): UmpireResult {
         if (answer.length !== 3 || guess.length !== 3) {
-            console.log("[ERROR] 숫자는 3자리여야 합니다.");
-            return;
+            throw new Error("입력값의 길이가 3이어야 합니다.");
         }
 
         const strikeCount = this.countStrike(answer, guess);
         const ballCount = this.countBall(answer, guess);
 
-        this.printResult(strikeCount, ballCount);
+        return { strikes: strikeCount, balls: ballCount };
     }
 
     private countStrike(answer: number[], guess: number[]): number {
@@ -32,26 +37,38 @@ export class ConsoleUmpire {
         }
         return count;
     }
+}
 
-    private printResult(strikeCount: number, ballCount: number): void {
-        if (strikeCount === 3) {
-            console.log("3스트라이크");
-            console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return;
-        }
+export function printResult(result: UmpireResult): string {
+    const { strikes, balls } = result;
 
-        if (strikeCount === 0 && ballCount === 0) {
-            console.log("낫싱");
-            return;
-        }
+    if (strikes === 3) {
+        return "3스트라이크";
+    }
 
-        const msgs: string[] = [];
-        if (ballCount > 0) {
-            msgs.push(`${ballCount}볼`);
+    if (strikes === 0 && balls === 0) {
+        return "낫싱";
+    }
+
+    const msgParts: string[] = [];
+    if (strikes > 0) {
+        msgParts.push(`${strikes}스트라이크`);
+    }
+    if (balls > 0) {
+        msgParts.push(`${balls}볼`);
+    }
+    return msgParts.join(" ");
+}
+export class ConsoleUmpire {
+    private readonly umpire = new Umpire();
+
+    play(answer: number[], guess: number[]): void {
+        try {
+            const result = this.umpire.judge(answer, guess);
+            console.log(printResult(result));
+        } catch (error) {
+            console.error("게임 중 오류가 발생했습니다:", error);
         }
-        if (strikeCount > 0) {
-            msgs.push(`${strikeCount}스트라이크`);
-        }
-        console.log(msgs.join(" "));
+        
     }
 }
