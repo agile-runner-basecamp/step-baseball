@@ -14,6 +14,12 @@ public class Judge {
     }
 
     public int countBall(List<Integer> answer, List<Integer> guess) {
-        return 3;
+        int ball = 0;
+        for (int i = 0; i < 3; i++) {
+            if (!answer.get(i).equals(guess.get(i)) && answer.contains(guess.get(i))) {
+                ball++;
+            }
+        }
+        return ball;
     }
 }
