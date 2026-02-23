@@ -54,11 +54,13 @@ export function printResult(result: UmpireResult): string {
     if (strikes > 0) {
         msgParts.push(`${strikes}스트라이크`);
     }
+
     if (balls > 0) {
         msgParts.push(`${balls}볼`);
     }
     return msgParts.join(" ");
 }
+
 export class ConsoleUmpire {
     private readonly umpire = new Umpire();
 

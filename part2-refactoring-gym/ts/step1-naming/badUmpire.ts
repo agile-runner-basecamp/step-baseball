@@ -12,9 +12,9 @@ export class BadUmpire {
 
     public countBalls(guess: number[], answer: number[]): number {
         let ballCount = 0;
-        for (let i = 0; i < BadUmpire.NUMBER_LENGTH; i++) {
+        for (let index = 0; index < BadUmpire.NUMBER_LENGTH; index++) {
             for (let j = 0; j < BadUmpire.NUMBER_LENGTH; j++) {
-                if (i !== j && guess[i] === answer[j]) {
+                if (index !== j && guess[index] === answer[j]) {
                     ballCount++;
                 }
             }
