@@ -35,4 +35,18 @@ class GameTest {
         // then
         assertThat(result).isEqualTo("1볼 1스트라이크");
     }
+
+    @DisplayName("문자열 입력으로 한 턴 결과를 반환한다")
+    @Test
+    void playTurnWithInput() {
+        // given
+        Game game = new Game();
+        List<Integer> answer = List.of(1, 2, 3);
+
+        // when
+        String result = game.playTurn(answer, "135");
+
+        // then
+        assertThat(result).isEqualTo("1볼 1스트라이크");
+    }
 }
