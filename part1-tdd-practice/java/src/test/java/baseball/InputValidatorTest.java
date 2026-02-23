@@ -17,4 +17,15 @@ class InputValidatorTest {
         assertThatThrownBy(() -> inputValidator.validate("12"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("숫자가 아닌 문자가 포함되면 예외가 발생한다")
+    @Test
+    void validateNumberOnly() {
+        // given
+        InputValidator inputValidator = new InputValidator();
+
+        // when & then
+        assertThatThrownBy(() -> inputValidator.validate("1a3"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
