@@ -3,21 +3,22 @@ package badcode;
 import java.util.List;
 
 public class ConsoleUmpire {
-    public void play(List<Integer> answer, List<Integer> guess) {
-        if (answer.size() != 3 || guess.size() != 3) {
-            System.out.println("[ERROR] 숫자는 3자리여야 합니다.");
-            return;
+    private static final int DIGIT_COUNT = 3;
+
+    public String judge(List<Integer> answer, List<Integer> guess) {
+        if (answer.size() != DIGIT_COUNT || guess.size() != DIGIT_COUNT) {
+            throw new IllegalArgumentException("[ERROR] 숫자는 3자리여야 합니다.");
         }
 
         int strikeCount = countStrike(answer, guess);
         int ballCount = countBall(answer, guess);
 
-        printResult(strikeCount, ballCount);
+        return formatResult(strikeCount, ballCount);
     }
 
     private int countStrike(List<Integer> answer, List<Integer> guess) {
         int count = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < DIGIT_COUNT; i++) {
             if (answer.get(i).equals(guess.get(i))) {
                 count++;
             }
@@ -27,8 +28,8 @@ public class ConsoleUmpire {
 
     private int countBall(List<Integer> answer, List<Integer> guess) {
         int count = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < DIGIT_COUNT; i++) {
+            for (int j = 0; j < DIGIT_COUNT; j++) {
                 if (i != j && answer.get(i).equals(guess.get(j))) {
                     count++;
                 }
@@ -37,16 +38,13 @@ public class ConsoleUmpire {
         return count;
     }
 
-    private void printResult(int strikeCount, int ballCount) {
-        if (strikeCount == 3) {
-            System.out.println("3스트라이크");
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return;
+    private String formatResult(int strikeCount, int ballCount) {
+        if (strikeCount == DIGIT_COUNT) {
+            return "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
         }
 
         if (strikeCount == 0 && ballCount == 0) {
-            System.out.println("낫싱");
-            return;
+            return "낫싱";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -56,6 +54,6 @@ public class ConsoleUmpire {
         if (strikeCount > 0) {
             sb.append(strikeCount).append("스트라이크");
         }
-        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
     }
 }
