@@ -21,4 +21,22 @@ public class UmpireTest {
         // then
         assertThat(result).isEqualTo(1);
     }
+
+    @DisplayName("자릿수만 다르고 같은 숫자가 있다면 볼 판정한다.")
+    @Test
+    void judgeBall(){
+        // given
+        String ranNum = "123";
+        String userNum = "123";
+        int index = 1;
+
+        Umpire umpire = new Umpire();
+
+        // when
+        int result = umpire.checkBall(ranNum, userNum, index);
+
+        // then
+        assertThat(result).isEqualTo(0);
+    }
+
 }
