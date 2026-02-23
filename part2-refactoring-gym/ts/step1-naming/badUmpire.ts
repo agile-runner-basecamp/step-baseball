@@ -1,23 +1,24 @@
 export class BadUmpire {
-    public doS(a: number[], b: number[]): number {
-        let r = 0;
-        for (let i = 0; i < 3; i++) {
-            if (a[i] === b[i]) {
-                r++;
+    private static readonly NUMBER_LENGTH = 3;
+    public countStrikes(guess: number[], answer: number[]): number {
+        let strikeCount = 0;
+        for (let index = 0; index < BadUmpire.NUMBER_LENGTH; index++) {
+            if (guess[index] === answer[index]) {
+                strikeCount++;
             }
         }
-        return r;
+        return strikeCount;
     }
 
-    public doB(a: number[], b: number[]): number {
-        let r = 0;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (i !== j && a[i] === b[j]) {
-                    r++;
+    public countBalls(guess: number[], answer: number[]): number {
+        let ballCount = 0;
+        for (let i = 0; i < BadUmpire.NUMBER_LENGTH; i++) {
+            for (let j = 0; j < BadUmpire.NUMBER_LENGTH; j++) {
+                if (i !== j && guess[i] === answer[j]) {
+                    ballCount++;
                 }
             }
         }
-        return r;
+        return ballCount;
     }
 }
