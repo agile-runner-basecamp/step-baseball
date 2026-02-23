@@ -1,4 +1,4 @@
-import { NumberGenerator, generateNumber } from './numbergenerator';
+import { NumberGenerator, generateNumber } from './numberGenerator';
 
 const makeSequenceGenerator = (seq: number[]): NumberGenerator => {
   let i = 0;
