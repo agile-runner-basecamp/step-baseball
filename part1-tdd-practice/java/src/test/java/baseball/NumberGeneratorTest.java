@@ -33,4 +33,17 @@ class NumberGeneratorTest {
         // then
         assertThat(numbers).allMatch(number -> number >= 1 && number <= 9);
     }
+
+    @DisplayName("서로 다른 숫자를 생성한다")
+    @Test
+    void generateUniqueNumbers() {
+        // given
+        NumberGenerator numberGenerator = new NumberGenerator();
+
+        // when
+        List<Integer> numbers = numberGenerator.generate();
+
+        // then
+        assertThat(numbers).doesNotHaveDuplicates();
+    }
 }
