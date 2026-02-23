@@ -13,4 +13,12 @@ public class Game {
         int ball = judge.countBall(answer, guess);
         return judge.formatResult(ball, strike);
     }
+
+    public String playTurn(List<Integer> answer, String input) {
+        InputValidator inputValidator = new InputValidator();
+        InputParser inputParser = new InputParser();
+        inputValidator.validate(input);
+        List<Integer> guess = inputParser.parse(input);
+        return playTurn(answer, guess);
+    }
 }
