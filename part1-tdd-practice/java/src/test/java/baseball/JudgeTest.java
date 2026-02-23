@@ -1,0 +1,66 @@
+package baseball;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class JudgeTest {
+
+    @DisplayName("같은 자리에 같은 수가 있으면 스트라이크이다")
+    @Test
+    void countStrike() {
+        // given
+        List<Integer> answer = List.of(1, 2, 3);
+        List<Integer> guess = List.of(1, 4, 5);
+
+        // when
+        Judge judge = new Judge();
+        int result = judge.countStrike(answer, guess);
+
+        // then
+        assertThat(result).isEqualTo(1);
+    }
+
+    @DisplayName("같은 수가 다른 자리에 있으면 볼이다")
+    @Test
+    void countBall() {
+        // given
+        List<Integer> answer = List.of(1, 2, 3);
+        List<Integer> guess = List.of(3, 1, 2);
+
+        // when
+        Judge judge = new Judge();
+        int result = judge.countBall(answer, guess);
+
+        // then
+        assertThat(result).isEqualTo(3);
+    }
+
+    @DisplayName("1볼 1스트라이크를 문자열로 반환한다")
+    @Test
+    void formatResult() {
+        // given
+        Judge judge = new Judge();
+
+        // when
+        String result = judge.formatResult(1, 1);
+
+        // then
+        assertThat(result).isEqualTo("1볼 1스트라이크");
+    }
+
+    @DisplayName("볼과 스트라이크가 모두 0이면 낫싱이다")
+    @Test
+    void formatNothing() {
+        // given
+        Judge judge = new Judge();
+
+        // when
+        String result = judge.formatResult(0, 0);
+
+        // then
+        assertThat(result).isEqualTo("낫싱");
+    }
+}
