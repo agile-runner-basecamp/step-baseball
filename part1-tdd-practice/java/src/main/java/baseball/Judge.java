@@ -22,4 +22,8 @@ public class Judge {
         }
         return ball;
     }
+
+    public String formatResult(int ball, int strike) {
+        return "";
+    }
 }

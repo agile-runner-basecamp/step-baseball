@@ -37,4 +37,17 @@ class JudgeTest {
         // then
         assertThat(result).isEqualTo(3);
     }
+
+    @DisplayName("1볼 1스트라이크를 문자열로 반환한다")
+    @Test
+    void formatResult() {
+        // given
+        Judge judge = new Judge();
+
+        // when
+        String result = judge.formatResult(1, 1);
+
+        // then
+        assertThat(result).isEqualTo("1볼 1스트라이크");
+    }
 }
