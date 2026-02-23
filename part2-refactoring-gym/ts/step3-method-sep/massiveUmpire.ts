@@ -41,7 +41,7 @@ export class MassiveUmpire {
         for (let i = 0; i < this.TARGET_SIZE; i++) {
             if (answer[i] === guess[i]) {
                 strikeCount++;
-            }  
+            }
         }
         return strikeCount;
     }   

@@ -5,8 +5,9 @@ export type UmpireResult = {
 
 
 export class Umpire {
+    private readonly TARGET_SIZE = 3;
     public judge(answer: number[], guess: number[]): UmpireResult {
-        if (answer.length !== 3 || guess.length !== 3) {
+        if (answer.length !== this.TARGET_SIZE || guess.length !== this.TARGET_SIZE) {
             throw new Error("입력값의 길이가 3이어야 합니다.");
         }
 
@@ -18,7 +19,7 @@ export class Umpire {
 
     private countStrike(answer: number[], guess: number[]): number {
         let count = 0;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < this.TARGET_SIZE; i++) {
             if (answer[i] === guess[i]) {
                 count++;
             }
@@ -28,8 +29,8 @@ export class Umpire {
 
     private countBall(answer: number[], guess: number[]): number {
         let count = 0;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < this.TARGET_SIZE; i++) {
+            for (let j = 0; j < this.TARGET_SIZE; j++) {
                 if (i !== j && answer[i] === guess[j]) {
                     count++;
                 }
