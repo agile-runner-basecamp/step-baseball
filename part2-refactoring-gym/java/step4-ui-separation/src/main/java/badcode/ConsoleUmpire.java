@@ -3,17 +3,34 @@ package badcode;
 import java.util.List;
 
 public class ConsoleUmpire {
+
+    private final OutputHandler out;
+    private final OutputPrinter printer;
+
+    public ConsoleUmpire(OutputHandler out, OutputPrinter printer){
+        this.out = out;
+        this.printer = printer;
+    }
+
     public void play(List<Integer> answer, List<Integer> guess) {
-        if (answer.size() != 3 || guess.size() != 3) {
-            System.out.println("[ERROR] 숫자는 3자리여야 합니다.");
-            return;
-        }
+        if (validate(answer, guess)) return;
 
         int strikeCount = countStrike(answer, guess);
         int ballCount = countBall(answer, guess);
 
-        printResult(strikeCount, ballCount);
+        String result = out.printResult(strikeCount, ballCount);
+        printer.print(result);
     }
+
+    private boolean validate(List<Integer> answer, List<Integer> guess) {
+        if (answer.size() != 3 || guess.size() != 3) {
+            String str = out.printErrorMessage();
+            printer.print(str);
+            throw new IllegalArgumentException(str);
+        }
+        return false;
+    }
+
 
     private int countStrike(List<Integer> answer, List<Integer> guess) {
         int count = 0;
@@ -37,25 +54,4 @@ public class ConsoleUmpire {
         return count;
     }
 
-    private void printResult(int strikeCount, int ballCount) {
-        if (strikeCount == 3) {
-            System.out.println("3스트라이크");
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return;
-        }
-
-        if (strikeCount == 0 && ballCount == 0) {
-            System.out.println("낫싱");
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        if (ballCount > 0) {
-            sb.append(ballCount).append("볼 ");
-        }
-        if (strikeCount > 0) {
-            sb.append(strikeCount).append("스트라이크");
-        }
-        System.out.println(sb.toString().trim());
-    }
 }
