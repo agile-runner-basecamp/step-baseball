@@ -16,10 +16,10 @@ public class UmpireTest {
         String userNum = "497";
         int index = 0;
 
-        Umpire umpire = new Umpire();
+        Umpire umpire = new Umpire(ranNum, userNum);
 
         // when
-        int result = umpire.checkStrike(ranNum, userNum, index);
+        int result = umpire.checkStrike(index);
 
         // then
         assertThat(result).isEqualTo(1);
@@ -33,10 +33,10 @@ public class UmpireTest {
         String userNum = "123";
         int index = 1;
 
-        Umpire umpire = new Umpire();
+        Umpire umpire = new Umpire(ranNum, userNum);
 
         // when
-        int result = umpire.checkBall(ranNum, userNum, index);
+        int result = umpire.checkBall(index);
 
         // then
         assertThat(result).isEqualTo(0);
@@ -49,9 +49,9 @@ public class UmpireTest {
         String ranNum = "123";
         String userNum = "124";
 
-        Umpire umpire = new Umpire();
+        Umpire umpire = new Umpire(ranNum, userNum);
 
-        int result = umpire.countStrike(ranNum, userNum);
+        int result = umpire.countStrike();
 
         assertThat(result).isEqualTo(2);
 
@@ -63,9 +63,9 @@ public class UmpireTest {
         String ranNum = "123";
         String userNum = "312";
 
-        Umpire umpire = new Umpire();
+        Umpire umpire = new Umpire(ranNum, userNum);
 
-        int result = umpire.countStrike(ranNum, userNum);
+        int result = umpire.countStrike();
 
         assertThat(result).isEqualTo(0);
 

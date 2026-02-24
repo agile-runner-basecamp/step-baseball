@@ -34,12 +34,12 @@ public class BaseBall{
 
             String restartNum = inputHandler.inputRestartNum();
 
-            if(restartNum == "1"){
+            if(restartNum.equals("1")){
                 ranNum = randomNumber.makeRandomNumber();
                 continue;
             }
 
-            if(restartNum == "2"){
+            if(restartNum.equals("2")){
                 outputHandler.gameCompleteMessage();
                 return;
             }
