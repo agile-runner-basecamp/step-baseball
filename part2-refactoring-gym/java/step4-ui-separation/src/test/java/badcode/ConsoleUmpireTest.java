@@ -1,8 +1,14 @@
 package badcode;
 
+import io.ConsoleInputHandler;
+import io.ConsoleOutputHandler;
+import io.InputHandler;
+import io.OutputHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // TODO: 이 테스트 클래스를 어떻게 짜야 할지 막막할 것입니다!
 // ConsoleUmpire 가 값을 반환하는 대신 화면에 출력(System.out)만 하고 있기 때문입니다.
@@ -11,15 +17,18 @@ class ConsoleUmpireTest {
     @DisplayName("출력(System.out)에 의존하는 코드는 테스트하기 어렵다")
     @Test
     void cannotTestConsoleOutput() {
-        ConsoleUmpire umpire = new ConsoleUmpire();
-        List<Integer> answer = List.of(1, 2, 3);
+        InputHandler inputHandler = new ConsoleInputHandler();
+        OutputHandler outputHandler = new ConsoleOutputHandler();
+        ConsoleUmpire umpire = new ConsoleUmpire(inputHandler, outputHandler);
+
+        List<Integer> answer = List.of(1, 2);
         List<Integer> guess = List.of(1, 4, 5);
 
         // 실행은 되지만 결과를 검증할 방법이 없습니다!
-        umpire.play(answer, guess);
 
         // TODO: 아래와 비슷한 검증이 가능해지도록 콘솔 로직을 걷어내세요.
-        // String result = umpire.judge(answer, guess);
-        // assertThat(result).isEqualTo("1스트라이크");
+        assertThrows(IllegalArgumentException.class, () -> {
+           umpire.play(answer,guess);
+        });
     }
 }
