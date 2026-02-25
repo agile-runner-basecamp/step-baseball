@@ -3,25 +3,28 @@ package badcode;
 import java.util.List;
 
 public class BadUmpire {
-    public int doS(List<Integer> a, List<Integer> b) {
-        int r = 0;
-        for (int i = 0; i < 3; i++) {
-            if (a.get(i).equals(b.get(i))) {
-                r++;
+
+    public static final int DIGIT_COUNT = 3;
+
+    public int countStrike(List<Integer> numbers, List<Integer> target) {
+        int strike = 0;
+        for (int index = 0; index < DIGIT_COUNT; index++) {
+            if (numbers.get(index).equals(target.get(index))) {
+                strike++;
             }
         }
-        return r;
+        return strike;
     }
 
-    public int doB(List<Integer> a, List<Integer> b) {
-        int r = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i != j && a.get(i).equals(b.get(j))) {
-                    r++;
+    public int countBall(List<Integer> numbers, List<Integer> target) {
+        int ball = 0;
+        for (int guessIndex = 0; guessIndex < DIGIT_COUNT; guessIndex++) {
+            for (int targetIndex = 0; targetIndex < DIGIT_COUNT; targetIndex++) {
+                if (guessIndex != targetIndex && numbers.get(guessIndex).equals(target.get(targetIndex))) {
+                    ball++;
                 }
             }
         }
-        return r;
+        return ball;
     }
 }
